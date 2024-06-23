@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMB_Bus</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="div_logoIcon"><img src="./img/KMB_logo.png" alt=""></div>
+        <div class="div_searchBar">
+            <input id="ipt_search" type="search" placeholder="&#x1F50D; Start typing to search..." list="search-suggestions" autocomplete="off"/>
+            <!-- <datalist id="search-suggestions">
+                <option value="JavaScript">
+                <option value="CSS">
+                <option value="Accessibility">
+                <option value="Web Design">
+            </datalist> -->
+        </div>
+    </header>
+    <main>
+        <div id="div_routeContainer" class="div_routeContainer">
+            <div id="div_searchResult" class="div_searchResult"></div>
+            <div id="div_routeList" class="div_routeList"></div>
+        </div>
+        <div id="div_routeStopContainer" class="div_routeStopContainer">
+            <div class="div_aRouteTitle">
+                <div>
+                    <div id="div_routeName_aRoute" class="div_routeName">XXX</div>
+                    <div class="borderRight"></div>
+                </div>
+                <div>
+                    <div class="div_titlefrom">From :</div>
+                    <div id="div_fromStop_aRoute" class="div_fromStop">XXX</div>
+                    <div class="borderRight"></div>
+                </div>
+                <div>
+                    <div class="div_titleTo">To :</div>
+                    <div id="div_toStop_aRoute" class="div_toStop">XXX</div>
+                </div>
+            </div>
+            <div id="div_routeStopList" class="div_routeStopList"></div>
+            <div>
+                <button id="btn_exchange" class="btn_exchange">
+                    <img src="./img/exchange_icon.png" alt="exchange_icon">
+                </button>
+                <button id="btn_closeRouteStopPage" class="btn_closeRouteStopPage">
+                    <img src="./img/close_icon.png" alt="close_icon">
+                </button>
+            </div>
+        </div>
+    </main>
+    
+</body>
+<script src="./script.js" defer></script>
+</html>

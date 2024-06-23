@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html,
+body {
+    height: 100%vh;
+    width: 100%;
+}
+
+/* --- header --- */
+header {
+    height: 150px;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    z-index: 2;
+    top: 0px;
+    background-color: #fff292;
+}
+.div_logoIcon {
+    height: 70px;
+    width: 180px;
+    margin-bottom: 10px;
+}
+.div_logoIcon>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.div_searchBar {
+    height: 50px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+}
+.div_searchBar>input {
+    height: 100%;
+    width: 100%;
+    min-width: 300px;
+    padding: 12px 24px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #ffffff;
+    border-radius: 24px;
+    font-size: 16px;
+    background-color: #c2c2c2;
+    color: #000000;
+    outline: none;
+}
+.div_searchBar [list]::-webkit-list-button,
+.div_searchBar [list]::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
+/* --- main --- */
+main {
+    height: 100%vh;
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+}
+.div_routeContainer {
+    height: 100%vh;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+}
+.div_routeContainer-show {
+    display: flex;
+}
+.div_searchResult {
+    height: fit-content;
+    width: 400px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: medium;
+}
+/* Route List */
+.div_routeList {
+    height: fit-content;
+    width: 400px;
+    padding: 15px 8px;
+    margin-bottom: 10px;
+    display: none;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 2px;
+    box-shadow: 0px 0px 10px 5px rgba(144, 144, 144, 0.5);
+}
+.div_routeList-show {
+    display: block;
+}
+.ul_routeList {
+    list-style-type: none
+}
+.li_aRoute {
+    min-height: 60px;
+    height: fit-content;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-color: #9d9d9d;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    position: relative;
+}
+.li_aRoute:hover {
+    background-color: #cfcfcf;
+    .div_routeName {
+        color: #6b2129;
+    }
+    .div_titlefrom {
+        color: #6b2129;
+    }
+    .div_titleTo {
+        color: #6b2129;
+    }
+}
+.li_aRoute:hover:before {
+    left: 0;
+    width: 100%;
+}
+.li_aRoute:before {
+    content: "";
+    height: 100%;
+    width: 0;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-color: #ccc174;
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+    right: 0;
+    transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.li_aRoute>div:nth-child(1) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.div_routeName {
+    text-align: center;
+    font-size: 40px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #b83947;
+}
+.li_aRoute>div:nth-child(2) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.div_titlefrom {
+    height: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #b83947;
+}
+.div_fromStop {
+    min-height: 25px;
+    max-height: 100%;
+    font-size: 15px;
+    padding: 0 5px;
+    text-align: center;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+.li_aRoute>div:nth-child(3) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.div_titleTo {
+    height: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #b83947;
+}
+.div_toStop {
+    min-height: 25px;
+    max-height: 100%;
+    font-size: 15px;
+    padding: 0 5px;
+    text-align: center;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+.borderRight {
+    height: 60%;
+    width: 1px;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    background-color: #9d9d9d;
+}
+
+/* Stop List */
+.div_routeStopContainer {
+    height: 100%hv;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+}
+.div_routeStopContainer-show {
+    display: flex;
+}
+.div_routeStopContainer>div:nth-child(3) {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+.btn_exchange {
+    height: 50px;
+    width: 70px;
+    margin: 0;
+    border-right-style: solid;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-width: 2px;
+    border-right-width: 4px;
+    border-color: #c2c2c2;
+    background-color: #fff292;
+    position: relative;
+    cursor: pointer;
+}
+.btn_exchange:hover {
+    background-color: #ccc174;
+}
+.btn_exchange>img {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(0, -50%);
+}
+.btn_closeRouteStopPage {
+    height: 50px;
+    width: 70px;
+    border-left-style: solid;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-width: 2px;
+    border-left-width: 4px;
+    border-color: #c2c2c2;
+    background-color: #fff292;
+    position: relative;
+    cursor: pointer;
+}
+.btn_closeRouteStopPage:hover {
+    background-color: #ccc174;
+}
+.btn_closeRouteStopPage>img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    right: 45%;
+    transform: translate(0, -50%);
+}
+.div_aRouteTitle {
+    min-height: 60px;
+    height: fit-content;
+    width: 400px;
+    border-style: solid;
+    border-width: 2px;
+    border-bottom-width: 5.5px;
+    border-radius: 20px;
+    border-color: #000000;
+    border-bottom-color: #ccc174;
+    box-shadow: 0px 0px 10px 5px rgba(144, 144, 144, 0.5);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.div_aRouteTitle>div:nth-child(1) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.div_aRouteTitle>div:nth-child(2) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.div_aRouteTitle>div:nth-child(3) {
+    min-height: 60px;
+    max-height: 100%;
+    width: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.div_routeStopList {
+    height: 100%hv;
+    width: 360px;
+    padding: 15px 0;
+    margin-bottom: 90px;
+    border-style: solid;
+    border-top-width: 0;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-color: #c2c2c2;
+    background-color: #ffffff;
+}
+.ul_routeStopList {
+    list-style-type: none
+}
+.li_aStop{
+    height: 45px;
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-color: #c2c2c2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:left;
+    gap: 20px;
+    cursor: pointer;
+}
+.div_stopNumber {
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    background-color: #b83947;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+}
+.div_stopName {
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
