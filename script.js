@@ -25,13 +25,13 @@ async function fetchRouteListData() {
     const RouteData = await response.json();
     console.log(RouteData);
     return RouteData;
-}
+} */
 async function fetchStopListData() {
     const response = await fetch("https://data.etabus.gov.hk/v1/transport/kmb/stop"); // https://data.etabus.gov.hk/v1/transport/kmb/stop
-    const stopListData = await response.json();
-    console.log(stopListData);
-    return stopListData;
-} */
+    const data = await response.json();
+    stopListData = data['data'];
+    //console.log(stopListData);
+}
 
 async function fetchrouteStopData(route, direction, service_type) {
     const response = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${direction}/${service_type}`); // https://data.etabus.gov.hk/v1/transport/kmb/route-stop/{route}/{direction}/{service_type}
@@ -39,11 +39,17 @@ async function fetchrouteStopData(route, direction, service_type) {
     routeStopData = data['data'];
     //console.log(routeStopData);
 }
-async function fetchETAData(stop_id, route, service_type) {
+async function fetchETAData(stop_id, route, service_type, dir) {
     const response = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop_id}/${route}/${service_type}`); // https://data.etabus.gov.hk/v1/transport/kmb/eta/{stop_id}/{route}/{service_type}
-    const ETAData = await response.json();
-    console.log(ETAData);
-    return ETAData;
+    const data = await response.json();
+    let temp = [];
+    for(let i = 0; i < data['data'].length; i++) {
+        if(data['data'][i]['dir'] === dir) {
+            temp.push(data['data'][i]);
+        }
+    }
+    ETAData = temp;
+    //console.log(ETAData);
 }
 
 // test
@@ -54,6 +60,7 @@ async function fetchETAData(stop_id, route, service_type) {
 
 let searchQuery = ""
 let routeListData = []
+let stopListData = []
 let routeStopData = []
 let ETAData = []
 let currentData = {'route': '', 'bound': '', 'orig_tc': '', 'dest_tc': '','service_type': '', 'stop_id': ''}
@@ -88,31 +95,86 @@ function storeData(route, bound, orig_tc, dest_tc, service_type, stop_id) {
     if(stop_id !== null) {
         currentData['stop_id'] = stop_id
     }
-    console.log(route, bound, orig_tc, dest_tc, service_type, stop_id)
+    //console.log(currentData)
 }
 
 fetchRouteListData();
+fetchStopListData();
+
+// ETA Data List
+/* const handleETADataListItem = (div_ETAListItem) => {
+    div_ETAListItem.addEventListener('click', () => {
+        console.log('hi')
+    });
+} */
+const createETADataList = (data, li_aStop, div_aStopList) => {
+    const {data_timestamp, eta, rmk_tc} = data;
+    console.log(eta)
+    const d = new Date();
+    arriveTime = `到達時間: ${d.getHours(eta)}:${d.getMinutes(eta)}:${d.getSeconds(eta)}`
+    /* arriveTime = `到達時間: ${eta.getHours()}:${eta.getMinutes()}:${eta.getSeconds()}` */
+    const div = document.createElement("div");
+    div.className = "div_ETAListItem";
+    div.id = 'div_ETAListItem'
+    div.innerHTML = `
+        <div class="div_timeRemark">${rmk_tc}</div>
+        <div class="div_arriveTime">${arriveTime}</div>
+    `;
+    div_aStopList.append(div);
+    /* const div_ETAListItem = div_aStopList.querySelector('#div_ETAListItem'); 
+    handleETADataListItem(div_ETAListItem); */
+}
+async function openETADataPage(li_aStop, div_aStopList, stop) {
+    await fetchETAData(stop, currentData['route'], currentData['service_type'], currentData['bound']);
+    console.log(ETAData);
+    console.log(div_aStopList.innerElement);
+    if (div_aStopList.getElementsByClassName("div_ETAListItem").length > 0) {
+        div_aStopList.classList.remove('div_aStopList-show');
+        div_aStopList.innerHTML = ""
+        div_aStopList.innerHTML = `<div style="height:3px; width:100%; background-color:#c2c2c2"></div>`
+        return
+    }
+    div_aStopList.classList.add('div_aStopList-show');
+    /* div_routeContainer.classList.remove('div_routeContainer-show');
+    div_routeStopContainer.classList.add('div_routeStopContainer-show');
+    div_routeName_aRoute.textContent = currentData.route;
+    div_fromStop_aRoute.textContent = currentData.orig_tc;
+    div_toStop_aRoute.textContent = currentData.dest_tc; */
+    ETAData.map((data) => createETADataList(data, li_aStop, div_aStopList));
+}
 
 // Stop list
-const handleRouteStopListItem = (li_aStop) => {
+const handleRouteStopListItem = (li_aStop, div_aStopList, stop) => {
     li_aStop.addEventListener('click', () => {
-        console.log('hi')
+        openETADataPage(li_aStop, div_aStopList, stop);
+        
     });
 }
 const createRouteStopList = (data) => {
     const {seq, stop} = data;
-    storeData(null, null, null, null, null, stop)
+    let stopName = '';
+    for(let i = 0; i < stopListData.length; i++) {
+        if(stopListData[i]['stop'] === stop) {
+            stopName = stopListData[i]['name_tc'];
+        }
+    }
     const ul = document.createElement("ul");
     ul.className = "ul_routeStopList";
+/*     ul.id = "ul_routeStopList"; */
     ul.innerHTML = `
         <li id="li_aStop" class="li_aStop">
             <div class="div_stopNumber">${seq}</div>
-            <div class="div_stopName">${stop}</div>
+            <div class="div_stopName">${stopName}</div>
         </li>
+        <div id="div_aStopList" class="div_aStopList">
+            <div style="height:3px; width:100%; background-color:#c2c2c2"></div>
+        </div>
     `;
     div_routeStopList.append(ul);
     const li_aStop = ul.querySelector('#li_aStop');
-    handleRouteStopListItem(li_aStop);
+/*     const ul_routeStopList = div_routeStopList.querySelector('#ul_routeStopList'); */
+    const div_aStopList = ul.querySelector('#div_aStopList');
+    handleRouteStopListItem(li_aStop, div_aStopList, stop);
 }
 async function openRouteStopPage() {
     let direction = '';

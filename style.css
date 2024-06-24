@@ -5,7 +5,7 @@
 }
 html,
 body {
-    height: 100%vh;
+    height: 100%;
     width: 100%;
 }
 
@@ -228,7 +228,7 @@ main {
 
 /* Stop List */
 .div_routeStopContainer {
-    height: 100%hv;
+    height: 100%vh;
     width: 100%;
     display: none;
     flex-direction: column;
@@ -338,7 +338,7 @@ main {
     align-items: center;
 }
 .div_routeStopList {
-    height: 100%hv;
+    height: 100%vh;
     width: 360px;
     padding: 15px 0;
     margin-bottom: 90px;
@@ -353,13 +353,18 @@ main {
     background-color: #ffffff;
 }
 .ul_routeStopList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+
     list-style-type: none
 }
 .li_aStop{
     height: 45px;
     width: 100%;
     padding: 5px 10px;
-    margin-bottom: 10px;
+    margin-top: 10px;
     border-style: solid;
     border-top-width: 3px;
     border-bottom-width: 3px;
@@ -372,6 +377,24 @@ main {
     justify-content:left;
     gap: 20px;
     cursor: pointer;
+}
+.div_aStopList {
+    height: fit-content;
+    width: 95%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-style: solid;
+    border-top-width: 0;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-color: #c2c2c2;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    display: none;
+}
+.div_aStopList-show {
+    display: block;
 }
 .div_stopNumber {
     height: 30px;
@@ -388,4 +411,36 @@ main {
     font-weight: 400;
     font-style: normal;
 }
-
+.div_ETAListItem {
+    height: 45px;
+    width: 100%;
+    padding: 5px 10px;
+    border-style: solid;
+    border-top-width: 0;
+    border-bottom-width: 3px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-color: #c2c2c2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+}
+.div_timeRemark {
+    height: fit-content;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #fff292;
+    font-size: 15px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+}
+.div_arriveTime {
+    font-size: 15px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
