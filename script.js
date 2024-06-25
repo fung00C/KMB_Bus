@@ -76,6 +76,8 @@ const div_fromStop_aRoute = document.querySelector("#div_fromStop_aRoute");
 const div_toStop_aRoute = document.querySelector("#div_toStop_aRoute");
 const div_routeStopList = document.querySelector("#div_routeStopList");
 
+let All_div_aStopList = [];
+
 function storeData(route, bound, orig_tc, dest_tc, service_type, stop_id) {
     if(route !== null) {
         currentData['route'] = route
@@ -109,44 +111,98 @@ fetchStopListData();
 } */
 const createETADataList = (data, li_aStop, div_aStopList) => {
     const {data_timestamp, eta, rmk_tc} = data;
-    console.log(eta)
-    const d = new Date();
-    arriveTime = `到達時間: ${d.getHours(eta)}:${d.getMinutes(eta)}:${d.getSeconds(eta)}`
-    /* arriveTime = `到達時間: ${eta.getHours()}:${eta.getMinutes()}:${eta.getSeconds()}` */
+    let arriveTime = '';
+    let remarkName = '';
+    const d = new Date(eta);
+    if(eta !== null) {
+        arriveTime = `到達時間: ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+    } else {
+        arriveTime = `到達時間: ------`
+    }
+    if(rmk_tc !== '') {
+        remarkName = rmk_tc;
+    } else {
+        remarkName = '暫停服務';
+    }
     const div = document.createElement("div");
     div.className = "div_ETAListItem";
     div.id = 'div_ETAListItem'
     div.innerHTML = `
-        <div class="div_timeRemark">${rmk_tc}</div>
+        <div class="div_timeRemark">${remarkName}</div>
         <div class="div_arriveTime">${arriveTime}</div>
     `;
     div_aStopList.append(div);
     /* const div_ETAListItem = div_aStopList.querySelector('#div_ETAListItem'); 
     handleETADataListItem(div_ETAListItem); */
 }
-async function openETADataPage(li_aStop, div_aStopList, stop) {
+async function openETADataPage(ul_routeStopList, div_aStopList, stop) {
     await fetchETAData(stop, currentData['route'], currentData['service_type'], currentData['bound']);
     console.log(ETAData);
-    console.log(div_aStopList.innerElement);
     if (div_aStopList.getElementsByClassName("div_ETAListItem").length > 0) {
         div_aStopList.classList.remove('div_aStopList-show');
         div_aStopList.innerHTML = ""
-        div_aStopList.innerHTML = `<div style="height:3px; width:100%; background-color:#c2c2c2"></div>`
+        console.log('hi');
         return
     }
-    div_aStopList.classList.add('div_aStopList-show');
-    /* div_routeContainer.classList.remove('div_routeContainer-show');
-    div_routeStopContainer.classList.add('div_routeStopContainer-show');
-    div_routeName_aRoute.textContent = currentData.route;
-    div_fromStop_aRoute.textContent = currentData.orig_tc;
-    div_toStop_aRoute.textContent = currentData.dest_tc; */
+    
+    /* console.log(div_routeStopList.getElementsByClassName("ul_routeStopList"));
+    let All_ul_routeStopList = div_routeStopList.getElementsByClassName("ul_routeStopList");
+    let AllArr_ul_routeStopList = [];
+    for(let i = 0; i < All_ul_routeStopList.length; i++) {
+        AllArr_ul_routeStopList.push(All_ul_routeStopList[i])
+    }
+    console.log(AllArr_ul_routeStopList)
+    let All_div_aStopList = AllArr_ul_routeStopList.map(ul_routeStopList => {
+        console.log(ul_routeStopList.getElementsByClassName("div_aStopList"))
+        return ul_routeStopList.getElementsByClassName("div_aStopList")
+    })
+    console.log(All_div_aStopList);
+    let AllArr_div_aStopList = [];
+    for(let i = 0; i < All_div_aStopList.length; i++) {
+        AllArr_div_aStopList.push(All_div_aStopList[i][0])
+    }
+    console.log(AllArr_div_aStopList);
+    for(let i = 0; i < AllArr_div_aStopList.length; i++) {
+        AllArr_div_aStopList[i].classList.remove('div_aStopList-show')
+    } */
+
+    console.log(All_div_aStopList);
+    let current_div_aStopList = '';
+    for(let i = 0; i < All_div_aStopList.length; i++) {
+        console.log(All_div_aStopList[i].classList.contains('div_aStopList-show'))
+        if(All_div_aStopList[i].classList.contains('div_aStopList-show')) {
+            current_div_aStopList = All_div_aStopList[i]
+        }
+    }
+    if(current_div_aStopList === '') {
+        div_aStopList.classList.add('div_aStopList-show');
+    } else {
+        if(current_div_aStopList === div_aStopList) {
+            div_aStopList.classList.remove('div_aStopList-show');
+            div_aStopList.innerHTML = ""   
+        } else {
+            current_div_aStopList.classList.remove('div_aStopList-show');
+            current_div_aStopList.innerHTML = ""
+            div_aStopList.classList.add('div_aStopList-show');
+        }
+    }
+    
+    
+    /* for(let i = 0; i < All_div_aStopList.length; i++) {
+            if(All_div_aStopList[i].classList.contains('div_aStopList-show')) {
+                All_div_aStopList[i].classList.remove('div_aStopList-show');
+                All_div_aStopList[i].innerHTML = ""
+            }
+        } */
+    /* div_aStopList.classList.add('div_aStopList-show'); */
+    
     ETAData.map((data) => createETADataList(data, li_aStop, div_aStopList));
 }
 
 // Stop list
-const handleRouteStopListItem = (li_aStop, div_aStopList, stop) => {
+const handleRouteStopListItem = (li_aStop, ul_routeStopList, div_aStopList, stop) => {
     li_aStop.addEventListener('click', () => {
-        openETADataPage(li_aStop, div_aStopList, stop);
+        openETADataPage(ul_routeStopList, div_aStopList, stop);
         
     });
 }
@@ -167,14 +223,16 @@ const createRouteStopList = (data) => {
             <div class="div_stopName">${stopName}</div>
         </li>
         <div id="div_aStopList" class="div_aStopList">
-            <div style="height:3px; width:100%; background-color:#c2c2c2"></div>
+            
         </div>
-    `;
+        
+    `;/* <div style="height:3px; width:100%; background-color:#c2c2c2"></div> */
     div_routeStopList.append(ul);
     const li_aStop = ul.querySelector('#li_aStop');
-/*     const ul_routeStopList = div_routeStopList.querySelector('#ul_routeStopList'); */
+    const ul_routeStopList = div_routeStopList.querySelector('#ul_routeStopList');
     const div_aStopList = ul.querySelector('#div_aStopList');
-    handleRouteStopListItem(li_aStop, div_aStopList, stop);
+    All_div_aStopList.push(div_aStopList);
+    handleRouteStopListItem(li_aStop, ul_routeStopList, div_aStopList, stop);
 }
 async function openRouteStopPage() {
     let direction = '';
