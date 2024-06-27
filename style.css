@@ -11,7 +11,7 @@ body {
 
 /* --- header --- */
 header {
-    height: 150px;
+    height: fit-content;/* 150px */
     width: 100%;
     padding: 10px;
     display: flex;
@@ -26,6 +26,8 @@ header {
     height: 70px;
     width: 180px;
     margin-bottom: 10px;
+    opacity: 1;
+    transition: transform 0.5s ease; /* Adjust the transition duration as needed */
 }
 .div_logoIcon>img {
     height: 100%;
@@ -38,10 +40,12 @@ header {
     display: flex;
     justify-content: center;
 }
+.div_searchBar-hide {
+    display: none;
+}
 .div_searchBar>input {
     height: 100%;
     width: 100%;
-    min-width: 300px;
     padding: 12px 24px;
     border-style: solid;
     border-width: 3px;
@@ -55,6 +59,85 @@ header {
 .div_searchBar [list]::-webkit-list-button,
 .div_searchBar [list]::-webkit-calendar-picker-indicator {
     display: none !important;
+}
+.div_buttonBar {
+    height: 50px;
+    width: 400px;
+    display: none;
+    justify-content: center;
+}
+.div_buttonBar-show {
+    display: flex;
+}
+.div_newSearch {
+    height: 100%;
+    width: 33%;
+    margin: 0;
+    border-style: solid;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-width: 3px;
+    border-color: #fdfdfd;
+    background-color: #c2c2c2;
+    position: relative;
+    cursor: pointer;
+}
+.div_newSearch:hover {
+    background-color: #929292;
+}
+.div_newSearch>img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.div_exchangeRoute {
+    height: 100%;
+    width: 33%;
+    margin: 0;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #fdfdfd;
+    background-color: #c2c2c2;
+    position: relative;
+    cursor: pointer;
+}
+.div_exchangeRoute:hover {
+    background-color: #929292;
+}
+.div_exchangeRoute>img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.div_close_routeStopPage {
+    height: 100%;
+    width: 33%;
+    margin: 0;
+    border-style: solid;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-width: 3px;
+    border-color: #fdfdfd;
+    background-color: #c2c2c2;
+    position: relative;
+    cursor: pointer;
+}
+.div_close_routeStopPage:hover {
+    background-color: #929292;
+}
+.div_close_routeStopPage>img {
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* --- main --- */
@@ -225,73 +308,17 @@ main {
     right: 0;
     background-color: #9d9d9d;
 }
-
 /* Stop List */
 .div_routeStopContainer {
     height: 100%vh;
     width: 100%;
+    background-color: rgb(255, 255, 255);
     display: none;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(255, 255, 255);
 }
 .div_routeStopContainer-show {
     display: flex;
-}
-.div_routeStopContainer>div:nth-child(3) {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-}
-.btn_exchange {
-    height: 50px;
-    width: 70px;
-    margin: 0;
-    border-right-style: solid;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-width: 2px;
-    border-right-width: 4px;
-    border-color: #c2c2c2;
-    background-color: #fff292;
-    position: relative;
-    cursor: pointer;
-}
-.btn_exchange:hover {
-    background-color: #ccc174;
-}
-.btn_exchange>img {
-    height: 25px;
-    width: 25px;
-    position: absolute;
-    top: 50%;
-    left: 40%;
-    transform: translate(0, -50%);
-}
-.btn_closeRouteStopPage {
-    height: 50px;
-    width: 70px;
-    border-left-style: solid;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-width: 2px;
-    border-left-width: 4px;
-    border-color: #c2c2c2;
-    background-color: #fff292;
-    position: relative;
-    cursor: pointer;
-}
-.btn_closeRouteStopPage:hover {
-    background-color: #ccc174;
-}
-.btn_closeRouteStopPage>img {
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 50%;
-    right: 45%;
-    transform: translate(0, -50%);
 }
 .div_aRouteTitle {
     min-height: 60px;
@@ -306,7 +333,10 @@ main {
     box-shadow: 0px 0px 10px 5px rgba(144, 144, 144, 0.5);
     display: flex;
     flex-direction: row;
-    position: relative;
+    /* position: relative; */
+    /* position: sticky;
+    top: 160px;
+    z-index: 1; */
 }
 .div_aRouteTitle>div:nth-child(1) {
     min-height: 60px;
@@ -353,14 +383,13 @@ main {
     background-color: #ffffff;
 }
 .ul_routeStopList {
+    list-style-type: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content:center;
-
-    list-style-type: none
 }
-.li_aStop{
+.li_aStop {
     height: 45px;
     width: 100%;
     padding: 5px 10px;
@@ -377,6 +406,12 @@ main {
     justify-content:left;
     gap: 20px;
     cursor: pointer;
+}
+.li_aStop:hover {
+    background-color: #cfcfcf;
+    .div_stopNumber {
+        background-color: #6b2129;
+    }
 }
 .div_aStopList {
     height: fit-content;
@@ -423,23 +458,69 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content:space-between;
+}
+.div_arriveTime {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.div_arriveTime>img {
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+}
+.div_arriveTime>div:nth-child(2) {
+    font-size: 16px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+}
+.div_remainTime {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.div_remainTime>div:nth-child(1) {
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #b83947;
+}
+.div_remainTime>div:nth-child(2) {
+    width: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-family: "LXGW WenKai Mono TC", monospace;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+}
+.div_remainTime>div:nth-child(3) {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #b83947;
 }
 .div_timeRemark {
-    height: fit-content;
-    width: fit-content;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+.div_timeRemark>div:nth-child(1) {
     padding: 3px;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #fff292;
     font-size: 15px;
     font-family: "LXGW WenKai Mono TC", monospace;
     font-weight: 400;
     font-style: normal;
     color: #000000;
-}
-.div_arriveTime {
-    font-size: 15px;
-    font-family: "LXGW WenKai Mono TC", monospace;
-    font-weight: 400;
-    font-style: normal;
 }

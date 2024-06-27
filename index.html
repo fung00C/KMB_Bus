@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMB_Bus</title>
+    <title>KMB Bus</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon_io//favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon_io//favicon-16x16.png">
+    <link rel="manifest" href="./img/favicon_io//site.webmanifest">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,15 +21,28 @@
 </head>
 <body>
     <header>
-        <div class="div_logoIcon"><img src="./img/KMB_logo.png" alt=""></div>
-        <div class="div_searchBar">
-            <input id="ipt_search" type="search" placeholder="&#x1F50D; Start typing to search..." list="search-suggestions" autocomplete="off"/>
-            <!-- <datalist id="search-suggestions">
-                <option value="JavaScript">
-                <option value="CSS">
-                <option value="Accessibility">
-                <option value="Web Design">
+        <div id="div_logoIcon" class="div_logoIcon">
+            <img src="./img/KMB_logo.png" alt="">
+        </div>
+        <div id="div_searchBar" class="div_searchBar">
+            <input id="ipt_search" type="search" placeholder="&#x1F50D; Start typing to search..." list="dlt_searchSuggestions" autocomplete="off"/>
+            <!-- <datalist id="dlt_searchSuggestions" class="dlt_searchSuggestions">
+                <option value="78">
+                <option value="91">
+                <option value="n37">
+                <option value="981">
             </datalist> -->
+        </div>
+        <div id="div_buttonBar" class="div_buttonBar">
+            <div id="div_newSearch" class="div_newSearch">
+                <img src="./img/search_icon.png" alt="sreach_icon">
+            </div>
+            <div id="div_exchangeRoute" class="div_exchangeRoute">
+                <img src="./img/exchange_icon.png" alt="exchange_icon">
+            </div>
+            <div id="div_close_routeStopPage" class="div_close_routeStopPage">
+                <img src="./img/close_icon.png" alt="close_icon">
+            </div>
         </div>
     </header>
     <main>
@@ -49,17 +67,8 @@
                 </div>
             </div>
             <div id="div_routeStopList" class="div_routeStopList"></div>
-            <div>
-                <button id="btn_exchange" class="btn_exchange">
-                    <img src="./img/exchange_icon.png" alt="exchange_icon">
-                </button>
-                <button id="btn_closeRouteStopPage" class="btn_closeRouteStopPage">
-                    <img src="./img/close_icon.png" alt="close_icon">
-                </button>
-            </div>
         </div>
     </main>
-    
 </body>
 <script src="./script.js" defer></script>
 </html>
